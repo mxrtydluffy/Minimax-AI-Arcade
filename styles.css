@@ -1,0 +1,79 @@
+:root {
+    --screen-margin: 30px;
+}
+
+html, body {
+    background-color: #f0e6de;
+    letter-spacing: 0;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+div {
+    display: block;
+}
+
+header {
+    font-family: fantasy;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 40px;
+    margin-left: var(--screen-margin);
+    margin-right: var(--screen-margin);
+}
+
+.HomePage-cover {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px var(--screen-margin);
+}
+
+.adjustWidth {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Aligns content to the left */
+.HomePage-coverLeft {
+    max-width: 500px;
+}
+
+.HomePage-coverLeft h1 {
+    font-family: "Gill Sans", sans-serif;
+    font-size: 50px;
+    margin: -7px 0;
+}
+
+.HomePage-Terracotta {
+    color: #823931;
+}
+
+.HomePage-Green {
+    color: #b2ac88;
+}
+
+.HomePage-ExploreButton {
+    font-size: 25px;
+    min-width: 200px;
+    /* Properties */
+    background-color: #B2AC88;
+    border: none;
+    border-radius: 5px;
+    color: #f0e6de;
+    cursor: pointer;
+    font-family: Brother Bold;
+    font-size: 20px;
+    padding: 10px 20px;
+}
