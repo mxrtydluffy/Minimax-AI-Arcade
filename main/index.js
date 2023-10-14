@@ -18,7 +18,6 @@ let $eight = ('#eight');
 let $nine = ('#nine');
 
 let $box = ('.box');
-let $openBox = ('#.availible');
 let $reset = ('#reset');
 
 // Look for object
@@ -124,7 +123,54 @@ const nextPlay = (arr) => {
     let x = availableMoves.length;
     // Choose index for next move.
     let random = Math.floor(Math.random() * x);
-    let move = availableMoves[rand];
+    let move = availableMoves[random];
     console.log(move);
     return move;
 }
+
+// Determining who won
+const Won = (clicked) => {
+    if($one.hasClass(clicked) === true && $two.hasClass(clicked) === true && $three.hasClass(clicked) === true) {
+        return true;
+    }
+    else if( $one.hasClass(clicked) === true && $four.hasClass(clicked) === true && $seven.hasClass(clicked) === true) {
+        return true;
+    }
+     else if( $one.hasClass(clicked) === true && $five.hasClass(clicked) === true && $nine.hasClass(clicked) === true) {
+        return true;
+    }
+    else if( $four.hasClass(clicked) === true && $five.hasClass(clicked) === true && $six.hasClass(clicked) === true) {
+        return true;
+    }
+    else if( $two.hasClass(clicked) === true && $five.hasClass(clicked) === true && $eight.hasClass(clicked) === true) {
+        return true;
+    }
+    else if( $seven.hasClass(clicked) === true && $eight.hasClass(clicked) === true && $nine.hasClass(clicked) === true) {
+        return true;
+    }
+    else if( $three.hasClass(clicked) === true && $six.hasClass(clicked) === true && $nine.hasClass(clicked) === true) {
+        return true;
+    }
+    else if( $three.hasClass(clicked) === true && $five.hasClass(clicked) === true && $seven.hasClass(clicked) === true) {
+        return true;
+    } else {
+        return false; 
+    }
+}
+
+// Reset button
+const resetButton = () => {
+    // Removing ID
+    $('.box').removeClass('player1clicked player2clicked unavailable');
+    $('.box').addClass('available');
+    $('.box').html('');
+    $winner.html('');
+    $winner.css('visibility', 'hidden');
+    console.log(board)
+    board.board = [['_','_','_'], ['_','_','_'], ['_','_','_']];
+    console.log(board)
+}
+
+$reset.on('click', function(){
+    resetButton();
+})
