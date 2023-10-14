@@ -69,13 +69,18 @@ Board.prototype.score = function(depth=0){
 
 // AI next move
 Board.prototype.nextMove = function(){
+    // Low score to minimize
     let highScore = -Infinity;
+    // Row and column to select the best square
     let address;
+    // Loop through all empty squares on board
     for(let i = 0; i < this.board.length; i++){
         for(let j = 0; j< this.board[i].length;j++){
             if(this.openSquare(this.board[i][j])){
                 this.board[i][j] = this.player;
+                // Get minimax on empty square
                 let score = this.minimax(false, 0)
+                // Reset
                 this.board[i][j] = '_'
                 if(score > highScore){
                     highScore = score;
@@ -84,11 +89,17 @@ Board.prototype.nextMove = function(){
             }
         }
     }
+    // Call mimimax and return open score.
+    // Max score -> Maximizer
+    // Min score -> Minimizer
+    // No terminal case -> recursive call
     return address;
 }
 
 Board.prototype.minimax = function(isMaximizing, depth=0){
+    // terminal case: If score is returned, game is finish
     let score = this.score(depth)
+    // null not at terminal state.
     if(score !== null){
         return score;
     }
@@ -100,11 +111,15 @@ Board.prototype.minimax = function(isMaximizing, depth=0){
         for(let j = 0; j < this.board[i].length; j++){
             if(this.openSquare(this.board[i][j])){
                 this.board[i][j] = currentPlayer
+                // Opposite of maximizing
                 let score = this. minimax(!isMaximizing, depth + 1)
+                // Reset
                 this.board[i][j] = '_'
+                // Maximum score if maximizing
                 if(isMaximizing){
                     highScore = Math.max(score, highScore)
                 } else {
+                    // Minimum score if minimizing
                     highScore = Math.min(score, highScore)
                 }
             }
