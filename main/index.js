@@ -1,4 +1,4 @@
-import gameBoard from './minimax'
+import gameBoard from './minimax.js'
 const board = [['_','_','_'], ['_','_','_'], ['_','_','_']]
 let newBoard = new gameBoard(board)
 console.log(newBoard)
@@ -17,8 +17,8 @@ let $seven = ('#seven');
 let $eight = ('#eight');
 let $nine = ('#nine');
 
-let $box = ('.box');
-let $reset = ('#reset');
+let $box = $('.box');
+let $reset = $('#reset');
 
 // Look for object
 const search = {
@@ -46,10 +46,10 @@ const lookUp = {
 }
 
 // Available moves
-let moves = [$one, $two, $three, $four, $five, $six, $seven, $eight, $nine]
+// let moves = [$one, $two, $three, $four, $five, $six, $seven, $eight, $nine]
 
 // Player move when clicks mouse. | Displays color
-$box.on('mouseclick', function(event){
+$box.on('mouseenter', function(event){
     if($(event.currentTarget).hasClass('available') == true){
         $(event.currentTarget).addClass('player1');
     } else {
@@ -59,7 +59,7 @@ $box.on('mouseclick', function(event){
 
 // After a click | Displays another color
 $box.on('mouseleave', function(event){
-    (event.currentTarget).removeClass('player1 unavaliable');
+    $(event.currentTarget).removeClass('player1 unavaliable');
 })
 
 // Will put X on available spots.
@@ -77,21 +77,21 @@ $box.on('click', function(event){
         }
         // Push response to board
         let currentId = event.currentTarget.id
-        let idLocation = lookup[currentId]
+        let idLocation = lookUp[currentId]
 
-        board.makeMove(idLocation.i, idLocation.j, 'X')
+        newBoard.makeMove(idLocation.i, idLocation.j, 'X')
 
         // After response check if won
-        if(!board.isAvailable()){
+        if(!newBoard.isAvailable()){
             $winner.css('visibility', 'visible')
             $winner.html('Draw');
             console.log('It\'s a Draw!')
         }
 
-        const AIMOVE = board.nextMove();
-        board.makeMove(AIMOVE.row, AIMOVE.column, 'O')
-        const linearVal = 3*AIMOVE.row + AIMOVE.column +  1;
-        let $nextClick = linearLookup[linearVal]
+        const AIMOVE = newBoard.nextMove();
+        newBoard.makeMove(AIMOVE.row, AIMOVE.column, 'O')
+        const linearVal = 3 * AIMOVE.row + AIMOVE.column +  1;
+        let $nextClick = search[linearVal]
 
         setTimeout(() =>{
             $nextClick.html('O')

@@ -1,6 +1,6 @@
 // Initialize Board
 // Coding the Algorithm 
-const gameBoard = function (gameBoard) { // constructor
+const gameBoard = function (board){ // constructor
     this.board = board;
     this.player = 'O'; // AI
     this.opponent = 'X'; // User
@@ -14,7 +14,7 @@ gameBoard.prototype.makeMove = function(cellRow, cellColumn, player){
 }
 
 // Checks if there's open spaces
-Board.prototype.isAvailable = function(){
+gameBoard.prototype.isAvailable = function(){
     if(this.board.flat().includes('_')){
         return true;
     } else {
@@ -23,7 +23,7 @@ Board.prototype.isAvailable = function(){
 }
 
 // Checks win in 3x3 plane
-Board.prototype.checkWin = function(p){
+gameBoard.prototype.checkWin = function(p){
     // ROWS
     if(this.board[0][0] === p && this.board[0][1] === p && this.board[0][2] === p){ // 0
         return true;
@@ -50,16 +50,16 @@ Board.prototype.checkWin = function(p){
 }
 
 // Looks for open square
-Board.prototype.openSquare = function(square){
-    return square === ')';
+gameBoard.prototype.openSquare = function(square){
+    return square === '_';
 }
 
 // Checks if Game Over
-Board.prototype.score = function(depth=0){
+gameBoard.prototype.score = function(depth=0){
     if(this.checkWin(this.player)){
         return 100 - depth;
     } else if(this.checkWin(this.opponent)){
-        return -(100-depth);
+        return -100 + depth;
     } else if(!this.isAvailable()){
         return 0;
     } else {
@@ -68,14 +68,14 @@ Board.prototype.score = function(depth=0){
 }
 
 // AI next move
-Board.prototype.nextMove = function(){
+gameBoard.prototype.nextMove = function(){
     // Low score to minimize
     let highScore = -Infinity;
     // Row and column to select the best square
     let address;
     // Loop through all empty squares on board
     for(let i = 0; i < this.board.length; i++){
-        for(let j = 0; j< this.board[i].length;j++){
+        for(let j = 0; j< this.board.length; j++){
             if(this.openSquare(this.board[i][j])){
                 this.board[i][j] = this.player;
                 // Get minimax on empty square
@@ -96,7 +96,7 @@ Board.prototype.nextMove = function(){
     return address;
 }
 
-Board.prototype.minimax = function(isMaximizing, depth=0){
+gameBoard.prototype.minimax = function(isMaximizing, depth=0){
     // terminal case: If score is returned, game is finish
     let score = this.score(depth)
     // null not at terminal state.
@@ -108,7 +108,7 @@ Board.prototype.minimax = function(isMaximizing, depth=0){
     let currentPlayer = isMaximizing ? this.player : this.opponent;
 
     for(let i = 0; i < this.board.length; i++){
-        for(let j = 0; j < this.board[i].length; j++){
+        for(let j = 0; j < this.board.length; j++){
             if(this.openSquare(this.board[i][j])){
                 this.board[i][j] = currentPlayer
                 // Opposite of maximizing
@@ -128,4 +128,4 @@ Board.prototype.minimax = function(isMaximizing, depth=0){
     return highScore;
 }
 
-export default Board;
+export default gameBoard;
