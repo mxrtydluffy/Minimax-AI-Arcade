@@ -49,11 +49,6 @@ gameBoard.prototype.checkWin = function(p){
     }
 }
 
-// Looks for open square
-gameBoard.prototype.openSquare = function(square){
-    return square === '_';
-}
-
 // Checks if Game Over
 gameBoard.prototype.score = function(depth=0){
     if(this.checkWin(this.player)){
@@ -65,6 +60,11 @@ gameBoard.prototype.score = function(depth=0){
     } else {
         return null;
     }
+}
+
+// Looks for open square
+gameBoard.prototype.openSquare = function(square){
+    return square === '_';
 }
 
 // AI next move
@@ -101,7 +101,7 @@ gameBoard.prototype.minimax = function(isMaximizing, depth=0){
     let score = this.score(depth)
     // null not at terminal state.
     if(score !== null){
-        return score;
+        return score
     }
 
     let highScore = isMaximizing ? - Infinity : Infinity;
@@ -112,7 +112,7 @@ gameBoard.prototype.minimax = function(isMaximizing, depth=0){
             if(this.openSquare(this.board[i][j])){
                 this.board[i][j] = currentPlayer
                 // Opposite of maximizing
-                let score = this. minimax(!isMaximizing, depth + 1)
+                let score = this.minimax(!isMaximizing, depth + 1)
                 // Reset
                 this.board[i][j] = '_'
                 // Maximum score if maximizing

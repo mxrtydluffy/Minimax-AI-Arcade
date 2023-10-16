@@ -7,15 +7,15 @@ console.log(newBoard)
 let $winner = $('#winner');
 
 // Declare slots by id
-let $one = ('#one');
-let $two = ('#two');
-let $three = ('#three');
-let $four = ('#four');
-let $five = ('#five');
-let $six = ('#six');
-let $seven = ('#seven');
-let $eight = ('#eight');
-let $nine = ('#nine');
+let $one = $('#one');
+let $two = $('#two');
+let $three = $('#three');
+let $four = $('#four');
+let $five = $('#five');
+let $six = $('#six');
+let $seven = $('#seven');
+let $eight = $('#eight');
+let $nine = $('#nine');
 
 let $box = $('.box');
 let $reset = $('#reset');
@@ -59,7 +59,7 @@ $box.on('mouseenter', function(event){
 
 // After a click | Displays another color
 $box.on('mouseleave', function(event){
-    $(event.currentTarget).removeClass('player1 unavaliable');
+    $(event.currentTarget).removeClass('player1 unavailable');
 })
 
 // Will put X on available spots.
@@ -77,7 +77,7 @@ $box.on('click', function(event){
         }
         // Push response to board
         let currentId = event.currentTarget.id
-        let idLocation = lookUp[currentId]
+        let idLocation = search[currentId];
 
         newBoard.makeMove(idLocation.i, idLocation.j, 'X')
 
@@ -88,17 +88,19 @@ $box.on('click', function(event){
             console.log('It\'s a Draw!')
         }
 
+        // AI CODE
+
         const AIMOVE = newBoard.nextMove();
         newBoard.makeMove(AIMOVE.row, AIMOVE.column, 'O')
-        const linearVal = 3 * AIMOVE.row + AIMOVE.column +  1;
-        let $nextClick = search[linearVal]
+        const linearVal = 3 * AIMOVE.row + AIMOVE.column + 1;
+        let $nextClick = lookUp[linearVal]
 
         setTimeout(() =>{
             $nextClick.html('O')
         }, 500);
         // Checking if other player went
         $nextClick.addClass('player2clicked');
-        $nextClick.remove('available');
+        $nextClick.removeClass('available');
     }
 
     // Add effect when won
@@ -166,9 +168,9 @@ const resetButton = () => {
     $('.box').html('');
     $winner.html('');
     $winner.css('visibility', 'hidden');
-    console.log(board)
-    board.board = [['_','_','_'], ['_','_','_'], ['_','_','_']];
-    console.log(board)
+    console.log(newBoard)
+    newBoard.board = [['_','_','_'], ['_','_','_'], ['_','_','_']];
+    console.log(newBoard)
 }
 
 $reset.on('click', function(){
